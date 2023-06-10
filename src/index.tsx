@@ -1,7 +1,9 @@
-import ReactDOM from "react-dom/client";
-import App from "@app/App.tsx";
-import "bootstrap/dist/css/bootstrap.min.css";
+import ReactDOM from 'react-dom/client';
 
-ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
+import { App } from './app/index';
+
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <App />
 );
