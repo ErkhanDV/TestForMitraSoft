@@ -3,7 +3,8 @@ import {
   combineReducers,
   configureStore,
 } from '@reduxjs/toolkit';
-import { postsReducer } from 'shared';
+
+import { postsReducer } from '@/shared';
 
 const rootReducer = combineReducers({
   postsReducer,
