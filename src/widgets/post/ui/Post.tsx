@@ -1,18 +1,35 @@
 import Card from 'react-bootstrap/Card';
+import { Container, Image } from 'react-bootstrap';
 
-import { IPost } from '@/shared';
 import { PostTitle } from '@/entities';
 import { PostBody } from '@/entities';
 import { CommentsBlock } from '@/features/CommentsBlock';
 
-export const Post = ({ title, body }: IPost) => {
+export interface Post {
+  title: string;
+  body: string;
+  id: number;
+}
+
+export const Post = ({ post }: { post: Post }) => {
   return (
-    <Card style={{ width: '20rem' }}>
-      <Card.Body>
-        <PostTitle postTitle={title} />
-        <PostBody postBody={body} />
-        <CommentsBlock />
-      </Card.Body>
+    <Card className="bd-highlight mb-3">
+      <Container className="d-flex flex-row">
+        <Image
+          src="./public/img/avatar.jpg"
+          roundedCircle
+          className="m-4"
+          width={200}
+          height={200}
+        />
+        <Card.Body>
+          <PostTitle postTitle={post.title} />
+          <PostBody postBody={post.body} />
+        </Card.Body>
+      </Container>
+      <Card.Footer>
+        <CommentsBlock postId={post.id} />
+      </Card.Footer>
     </Card>
   );
 };

@@ -7,24 +7,30 @@ export interface IPost {
   body: string;
 }
 
-export interface IPosts {
+interface IPosts {
   posts: IPost[];
+  isLoading: boolean;
 }
 
 const initialState: IPosts = {
   posts: [],
+  isLoading: false,
 };
 
-export const postsSlice = createSlice({
+export const postListSlice = createSlice({
   name: 'posts',
   initialState,
   reducers: {
     updatePosts(state, action: PayloadAction<IPost[]>) {
       state.posts = action.payload;
+      state.isLoading = false;
+    },
+    toLoadPosts: (state) => {
+      state.isLoading = true;
     },
   },
 });
 
-export const postsActions = postsSlice.actions;
+export const postsActions = postListSlice.actions;
 
-export const postsReducer = postsSlice.reducer;
+export const postListReducer = postListSlice.reducer;

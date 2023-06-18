@@ -1,20 +1,23 @@
-import {
-  PreloadedState,
-  combineReducers,
-  configureStore,
-} from '@reduxjs/toolkit';
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
 
-import { postsReducer } from '@/shared';
+import createSagaMiddleware from 'redux-saga';
+
+import { postListReducer, PostSaga } from '@/shared';
 
 const rootReducer = combineReducers({
-  postsReducer,
+  postListReducer,
 });
 
-export const setupStore = (preloadedState?: PreloadedState<TRootState>) => {
-  return configureStore({
+const saga = createSagaMiddleware();
+
+export const setupStore = () => {
+  const store = configureStore({
     reducer: rootReducer,
-    preloadedState,
+    middleware: [saga],
   });
+
+  saga.run(PostSaga);
+  return store;
 };
 
 export type TRootState = ReturnType<typeof rootReducer>;

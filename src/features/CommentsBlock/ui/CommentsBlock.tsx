@@ -1,48 +1,33 @@
-import { Comment } from '@/entities';
 import { useState } from 'react';
-import { Accordion, Spinner } from 'react-bootstrap';
 
-export const CommentsBlock = () => {
-  const [isOpen, toToggle] = useState<boolean>(false);
+import { Accordion } from 'react-bootstrap';
 
-  const [isLoading, setLoading] = useState<boolean>(false);
+import { CommentsList } from '@/entities';
 
-  const [comments, setComments] = useState<Comment[]>([]);
+import { fetchingComments } from '../api/fetchingComments';
 
-  const accordionHandler = async () => {
-    if (!isOpen) {
-      setLoading(true);
-      const response = await fetch(
-        'https://jsonplaceholder.typicode.com/posts/1/comments'
-      );
-      const resped: Comment[] = await response.json();
-      setTimeout(() => {
-        setComments(resped);
-        setLoading(false);
-      }, 1000);
-    } else {
-      setComments([]);
-    }
-    toToggle(!isOpen);
+export type TComment = {
+  email: string;
+  body: string;
+  id: number;
+};
+
+export const CommentsBlock = ({ postId }: { postId: number }) => {
+  const [isVisibility, setVisibility] = useState<boolean>(false);
+  const [comments, setComments] = useState<TComment[]>([]);
+
+  const commentsHandler = () => {
+    isVisibility ? setComments([]) : fetchingComments(postId, setComments);
+    setVisibility(!isVisibility);
   };
 
   return (
     <Accordion>
-      <Accordion.Item eventKey="0">
-        <Accordion.Header onClick={accordionHandler}>
-          {!isOpen ? 'Show comments' : 'Hide comments'}
+      <Accordion.Item eventKey={`${postId}`}>
+        <Accordion.Header onClick={commentsHandler}>
+          {!isVisibility ? 'Show comments' : 'Hide comments'}
         </Accordion.Header>
-        <Accordion.Body>
-          {!isLoading ? (
-            comments.map((comment) => (
-              <Comment comment={comment} key={comment.id} />
-            ))
-          ) : (
-            <Spinner animation="border" role="status">
-              <span className="visually-hidden">Loading...</span>
-            </Spinner>
-          )}
-        </Accordion.Body>
+        {isVisibility ? <CommentsList comments={comments} /> : null}
       </Accordion.Item>
     </Accordion>
   );

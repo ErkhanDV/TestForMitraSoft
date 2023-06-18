@@ -1,21 +1,18 @@
+import { TComment } from '@/features/CommentsBlock';
 import { Card } from 'react-bootstrap';
 
-export interface Comment {
-  postId: number;
-  id: number;
-  name: string;
-  email: string;
-  body: string;
-}
+export const Comment = ({
+  comment,
+  commentIndex,
+}: {
+  comment: TComment;
+  commentIndex: number;
+}) => {
+  const commentNumber = commentIndex + 1;
 
-export interface IComment {
-  comment: Comment;
-}
-
-export const Comment = ({ comment }: IComment) => {
   return (
     <Card>
-      <Card.Header>{`Comment #${comment.id}`}</Card.Header>
+      <Card.Header>{`Comment #${commentNumber}`}</Card.Header>
       <Card.Body>
         <Card.Title>{comment.email}</Card.Title>
         <Card.Text>{comment.body}</Card.Text>

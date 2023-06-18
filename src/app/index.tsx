@@ -1,10 +1,14 @@
-import { Post } from '@/widgets';
-
+import { Container } from 'react-bootstrap';
 import { withProviders } from './providers';
+import { Main } from '@/pages';
 
 const App = () => {
   return (
-    <Post title={'Post about...'} body={'This is post about my friends'} />
+    <div className="bg-secondary">
+      <Container>
+        <Main />
+      </Container>
+    </div>
   );
 };
 
