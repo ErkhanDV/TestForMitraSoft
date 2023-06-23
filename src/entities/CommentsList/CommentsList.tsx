@@ -1,10 +1,16 @@
+import { FC } from 'react';
+
 import { Loader } from '@/shared';
 import { Comment } from '@/entities';
 import { Accordion } from 'react-bootstrap';
 
 import { TComment } from '@/features/CommentsBlock';
 
-export const CommentsList = ({ comments }: { comments: TComment[] }) => {
+type Props = {
+  comments: TComment[];
+};
+
+export const CommentsList: FC<Props> = ({ comments }) => {
   return (
     <Accordion.Body>
       {comments.length ? (

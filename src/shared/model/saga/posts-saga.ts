@@ -22,5 +22,5 @@ function* workSetPosts() {
 }
 
 export function* PostSaga() {
-  yield takeEvery('posts/toLoadPosts', workSetPosts);
+  yield takeEvery('posts/loadPosts', workSetPosts);
 }

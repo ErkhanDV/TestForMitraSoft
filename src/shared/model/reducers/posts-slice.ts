@@ -25,7 +25,7 @@ export const postListSlice = createSlice({
       state.posts = action.payload;
       state.isLoading = false;
     },
-    toLoadPosts: (state) => {
+    loadPosts: (state) => {
       state.isLoading = true;
     },
   },

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { FC, useState } from 'react';
 
 import { Accordion } from 'react-bootstrap';
 
@@ -12,7 +12,11 @@ export type TComment = {
   id: number;
 };
 
-export const CommentsBlock = ({ postId }: { postId: number }) => {
+type Props = {
+  postId: number;
+};
+
+export const CommentsBlock: FC<Props> = ({ postId }) => {
   const [isVisibility, setVisibility] = useState<boolean>(false);
   const [comments, setComments] = useState<TComment[]>([]);
 
@@ -25,7 +29,7 @@ export const CommentsBlock = ({ postId }: { postId: number }) => {
     <Accordion>
       <Accordion.Item eventKey={`${postId}`}>
         <Accordion.Header onClick={commentsHandler}>
-          {!isVisibility ? 'Show comments' : 'Hide comments'}
+          {isVisibility ? 'Hide comments' : 'Show comments'}
         </Accordion.Header>
         {isVisibility ? <CommentsList comments={comments} /> : null}
       </Accordion.Item>

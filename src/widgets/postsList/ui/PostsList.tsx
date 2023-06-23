@@ -1,16 +1,16 @@
-import { useEffect } from 'react';
+import { FC, useEffect } from 'react';
 
 import { Stack } from 'react-bootstrap';
 
 import { Post } from '@/widgets';
 import { Loader, useAppSelector, useAppActions } from '@/shared';
 
-export const PostsList = () => {
+export const PostsList: FC = () => {
   const { posts } = useAppSelector((state) => state.postListReducer);
-  const { toLoadPosts } = useAppActions();
+  const { loadPosts } = useAppActions();
 
   useEffect(() => {
-    toLoadPosts();
+    loadPosts();
   }, []);
 
   return (

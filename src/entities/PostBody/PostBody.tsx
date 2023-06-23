@@ -1,9 +1,10 @@
+import { FC } from 'react';
 import { Card } from 'react-bootstrap';
 
-export interface PostBody {
+type Props = {
   postBody: string;
-}
+};
 
-export const PostBody = ({ postBody }: PostBody) => {
+export const PostBody: FC<Props> = ({ postBody }) => {
   return <Card.Text>{postBody}</Card.Text>;
 };
